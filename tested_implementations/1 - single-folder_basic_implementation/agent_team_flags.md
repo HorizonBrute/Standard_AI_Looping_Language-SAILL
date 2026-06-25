@@ -1,4 +1,4 @@
-# Agent Team Flags — Standardized AI Loop Language (SAILL)
+# Agent Team Flags — Standard AI Looping Language (SAILL)
 Role primitives for agent team definitions. Extend in `agent_team_flags.local.md`.
 | Flag | Form | Means |
 |------|------|-------|

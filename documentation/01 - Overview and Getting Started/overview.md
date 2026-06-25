@@ -76,7 +76,7 @@ The fastest path is the [single-folder basic implementation](../02%20-%20Tested%
 This validates SAILL is functional in your environment before you integrate it into your own project.
 
 **To integrate into your own project:**
-1. Copy `agent_teams.md`, `agent_team_flags.md`, and `model_prefs.md` into your project directory (or point at them via environment variable paths — see [Tested Implementation 3](../11%20-%20Tested%20Implementation%203/impl3.md)).
+1. Copy `agent_teams.md`, `agent_team_flags.md`, and `model_prefs.md` into your project directory (or point at them via environment variable paths — see [Tested Implementation 3](../10%20-%20Tested%20Implementation%203/impl3.md)).
 2. Add `@-import` lines for those files in your `agents.md` or `CLAUDE.md`.
 3. Create `model_prefs.local.md` in the same directory and fill in your model IDs for each group.
 4. Reload your harness context.
@@ -94,7 +94,7 @@ Run `/context-cost` from the directory. The output should show `CLAUDE.md` (or `
 
 Run `/agent-teams` (bare). The skill displays all teams currently in effect, their roles, model groups, and source files.
 
-Expected output: all four shipped teams visible, sourced from `agent_teams.md`.
+Expected output: all five shipped teams visible, sourced from `agent_teams.md`.
 
 ### 3. Test spawning
 
@@ -123,4 +123,4 @@ The acting model should spawn an Investigator on `#midcost`, then a Fixer on `#l
 | Model groups, routing, per-session slots | [Model Preferences](../08%20-%20Model%20Preferences/model_preferences.md) |
 | Multi-folder inheritance example | [Tested Implementation 2](../09%20-%20Tested%20Implementation%202/impl2.md) |
 | Environment variable paths example | [Tested Implementation 3](../10%20-%20Tested%20Implementation%203/impl3.md) |
-| AIOS helper utilities reference | [Helper Utilities](../11%20-%20Helper%20Utilities/helper_utilities.md) |
+| Helper utilities reference | [Helper Utilities](../11%20-%20Helper%20Utilities/helper_utilities.md) |

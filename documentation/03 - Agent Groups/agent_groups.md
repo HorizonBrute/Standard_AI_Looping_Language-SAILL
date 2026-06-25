@@ -13,7 +13,7 @@ A team is an ordered list of **roles**. Each role specifies:
 - An optional condition flag (`if needed`, `if asked`, `ask user`, `parallel`)
 - A one-line charter describing what the role does
 
-The acting model spawns each role in order on its assigned model group, passing the prior role's output as input.
+The acting model (the model running the current session) spawns each role in order on its assigned model group, passing the prior role's output as input.
 
 **Invoking a team** is natural-language — no slash command:
 
@@ -35,6 +35,8 @@ A role's model group can include a condition flag, written inline in parentheses
 | `(#group, ask user)` | Pause before this role and wait for the user's input or approval |
 
 Conditions combine with loops: a conditional looping role loops only on runs where it actually executes.
+
+> For the full flag set including `parallel`, `wait`, `Loop`, `if fail`, box syntax, skill calls, and `-context-` values, see `agent_team_flags.md`.
 
 ---
 
@@ -67,7 +69,7 @@ repeat until <pass condition> or <max> iterations, then <cap action>.
 
 ---
 
-## The Four Shipped Starter Teams
+## The Five Shipped Starter Teams
 
 ### Investigate & Fix
 
@@ -86,7 +88,7 @@ Full lifecycle for a sizable or ambiguous task. Default when "send an agent team
 |---|---|---|---|
 | 1 | Orchestrator | #highcap | Breaks the task down and coordinates the rest |
 | 2 | Log-reader | #lowcost, if needed | Gathers runtime evidence before planning |
-| 3 | Planner | #highcap | Designs the approach |
+| 3 | Planner | #highcap, ask user | Designs the approach; presents plan and waits for user approval |
 | 4 | Implementer | #lowcost | Writes the code |
 | 5 | Validator | #midcost, if asked | Verifies Implementer's work; loops back to Implementer on failure (cap: 3) |
 
@@ -99,14 +101,35 @@ Audit a diff then apply findings.
 | 1 | Reviewer | #highcap | Audits the diff for correctness, security, and regressions; hands findings to Fixer |
 | 2 | Fixer | #lowcost | Applies the reviewer's findings and confirms each is resolved |
 
+The Fixer role includes a loop:
+> **Loop:** on remaining issues, return feedback to "Reviewer" and re-run from there; repeat until clean or 2 iterations, then report unresolved items.
+
 ### Explore & Summarize
 
 Fan out across a codebase or question, then distill.
 
 | # | Role | Model group | Charter |
 |---|---|---|---|
-| 1 | Explorer | #investigate | Fans out across files/sources to gather evidence |
-| 2 | Summarizer | #lowcost | Distills findings into a tight, actionable report |
+| 1 | Orchestrator | #highcap | Defines scope and distributes work |
+| 2 | Recon box | #investigate, parallel | CodeReader and DocReader run concurrently inside a `Recon[ … ]` box — `Recon[ CodeReader (#investigate, parallel), DocReader (#investigate, parallel) ] (wait)` |
+| 3 | Synthesizer | #midcost | Integrates all findings into a single actionable report |
+
+The `Recon[ … ]` box is the reference example of the box syntax — two parallel roles grouped into one node, with a `(wait)` sync point after.
+
+### Build & Certify
+
+Build an artifact then run full certification, with a bounded retry loop and failure escalation.
+
+| # | Role | Model group | Charter |
+|---|---|---|---|
+| 1 | Builder | #lowcost | Builds the artifact |
+| 2 | Certifier | #midcost | Runs the certification suite |
+
+The Certifier includes a loop with failure escalation:
+> **Loop:** on failure, return findings to "Builder" and re-run from there; repeat until certified or `-context:cap-` iterations, then report failures.
+> `if fail /escalate_cert_failure`
+
+This is the reference example of `-context:cap-` (a runtime-resolved iteration cap) and `if fail` (failure escalation to a named skill).
 
 ---
 
@@ -122,7 +145,7 @@ SAILL flags govern control flow (whether/when/how often a role runs). A role's s
 
 ## Defining Custom Teams
 
-Custom teams go in `local.agent_teams.md` (gitignored). Same-name entries override the shipped file; new names are unioned in. Never edit the shipped `agent_teams.md` directly.
+Custom teams go in `local.agent_teams.md` (gitignored — keeps local customizations out of version control). Same-name entries override the shipped file; new names are unioned in. Never edit the shipped `agent_teams.md` directly.
 
 Minimal format:
 
@@ -153,11 +176,11 @@ Use the `/agent-teams` skill to add or modify teams without hand-editing. It han
 Team definitions cascade from least to most specific. Most-specific wins on same-name.
 
 ```
-<root>/agent_teams.md                     (shipped base)
-  <root>/local.agent_teams.md             (root overrides)
-    <project>/local.agent_teams.md
-      <brain>/local.agent_teams.md
-        <subfolder>/local.agent_teams.md  (most specific)
+<root>/agent_teams.md                       (shipped base)
+  <root>/agent_teams.local.md               (root overrides)
+    <project>/agent_teams.local.md
+      <workspace>/agent_teams.local.md
+        <subfolder>/agent_teams.local.md    (most specific)
 ```
 
 To activate overrides at a scope: the directory's `agents.md` must `@-import` its sibling `local.agent_teams.md`. This is handled automatically by the `/agent-teams` skill when creating a new scope.

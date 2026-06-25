@@ -1,6 +1,6 @@
 # Model Preferences
 
-The model-preference layer directs which model is used for **spawned agents and delegated tasks**. It does not change the model you are talking to in the current session — that is set by the harness at launch.
+The model-preference layer directs which model is used for **spawned agents and delegated tasks**. It does not change the model you are talking to in the current session — that is set by the harness (Claude Code or equivalent) at launch.
 
 The mechanism is in-context instruction, not enforcement. The acting model reads the loaded `model_prefs.md` and follows it when spawning agents. Reliability is best-effort and depends on the acting model honoring the instructions.
 
@@ -99,9 +99,9 @@ When the acting model needs to pick a model for spawned work:
 Model preferences cascade from least to most specific. Most-specific scope wins on conflict.
 
 ```
-OS-global model_prefs.md / model_prefs.local.md
+user-global model_prefs.md / model_prefs.local.md
   project-root model_prefs.local.md
-    brain-root model_prefs.local.md
+    workspace-root model_prefs.local.md
       subfolder model_prefs.local.md   (most specific)
 ```
 
@@ -116,8 +116,9 @@ Override files are `@-imported` from the scope's `agents.md` — never from `CLA
 
 ## Setup
 
-1. Copy the tracked template (`model_prefs.md`) — do not edit it.
+1. Copy the version-controlled base file (`model_prefs.md`) — do not edit it. Your local model IDs go in the gitignored `model_prefs.local.md`.
 2. Create `model_prefs.local.md` in the same directory (gitignored).
+   Add it to `.gitignore`: echo 'model_prefs.local.md' >> .gitignore
 3. Run `/model-catalog-refresh` to get current model IDs and pricing from provider documentation.
 4. Fill in group members using model IDs from the catalog:
    ```markdown
@@ -132,6 +133,7 @@ Override files are `@-imported` from the scope's `agents.md` — never from `CLA
    ```
 5. Add task-class routing rules as needed.
 6. Ensure `agents.md` `@-imports` `./model_prefs.local.md`.
+   `@-import` syntax: add a line `@./model_prefs.local.md` to your `agents.md` or `CLAUDE.md` file. The harness reads this and inlines the file into context before the session starts.
 
 All user choices go in the gitignored local file. Never put model IDs in the tracked base file.
 

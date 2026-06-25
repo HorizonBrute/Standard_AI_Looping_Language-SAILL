@@ -56,6 +56,8 @@ These files are loaded via `@-imports` in `CLAUDE.md`:
 @model_prefs.md         # model group config
 ```
 
+> **Known limitation:** In testing with Claude Sonnet 4.6 (June 2026), `@-imports` declared inside `agents.md` were found to be unreliable — the harness did not consistently inline the referenced files. The pattern above (importing all SAILL files directly in `CLAUDE.md`) is the verified working approach. See the tested implementations for the exact wiring used.
+
 Once loaded, the model has the team definitions and model group mappings in context for the entire session. No further reads are needed to invoke a team by name.
 
 `model_prefs.local.md` (gitignored) is the file where actual model IDs are placed. It is `@-imported` alongside `model_prefs.md` to supply the group membership and task-class routing the base file defines as empty.
@@ -85,16 +87,16 @@ Team definitions and model preferences cascade from the least-specific scope to 
 ### Cascade order (least to most specific)
 
 ```
-<root>/agent_teams.md                     (shipped base — do not edit)
-  <root>/local.agent_teams.md             (root-level overrides and custom teams)
-    <project>/local.agent_teams.md        (project-level overrides)
-      <brain>/local.agent_teams.md        (brain-level overrides)
-        <subfolder>/local.agent_teams.md  (subfolder-level overrides)
+<root>/agent_teams.md                       (shipped base — do not edit)
+  <root>/agent_teams.local.md               (root-level overrides and custom teams)
+    <project>/agent_teams.local.md          (project-level overrides)
+      <workspace>/agent_teams.local.md      (workspace-level overrides)
+        <subfolder>/agent_teams.local.md    (subfolder-level overrides)
 ```
 
 **Same-name overrides:** a team defined at a more-specific scope replaces the same-named team from a less-specific scope. New names are unioned in — they are added without removing anything from above.
 
-**How it activates:** Each `agents.md` in the hierarchy can `@-import` its sibling `local.agent_teams.md`. When that `agents.md` is in the load chain for the current CWD, the override is active.
+**How it activates:** Each `agents.md` in the hierarchy can `@-import` its sibling `agent_teams.local.md`. When that `agents.md` is in the load chain for the current CWD, the override is active.
 
 The same cascade applies to `model_prefs.local.md` for model group membership and routing rules.
 

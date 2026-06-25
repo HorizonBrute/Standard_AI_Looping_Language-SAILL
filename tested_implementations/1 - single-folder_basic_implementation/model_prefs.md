@@ -2,8 +2,8 @@
 
 Governs the model used for spawned agents and delegated tasks. Apply in this order:
 
-1. Named group from the prompt â€” first runnable member.
-2. Task-Class Routing match â€” first runnable member of the mapped group.
+1. Named group from the prompt — first runnable member.
+2. Task-Class Routing match — first runnable member of the mapped group.
 3. Sub-Agent Override (sub-agents only, if set).
 4. Spawned Agent Model (if set).
 5. Harness / provider default.
@@ -48,5 +48,5 @@ When local and base files both load:
 - Groups: membership combined.
 - Routing: local rules apply; more specific class wins on conflict.
 
-Scope cascade (OS-global < project < brain < subfolder): same merge rules, most specific scope wins.
+Scope cascade (user-global < project < workspace < subfolder): same merge rules, most specific scope wins.
 Override files @-imported from `agents.md`; never routed through `CLAUDE.md`.

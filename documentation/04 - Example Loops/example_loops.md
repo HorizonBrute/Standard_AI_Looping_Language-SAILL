@@ -1,5 +1,21 @@
 # SAILL Example Loops
 
+| # | Team Name | Human Prompt (truncated) | SAILL | Invoke |
+|---|---|---|---|---|
+| 1 | Diagnose & Patch | "Look into why the auth service is crashing and fix it." | `Diagnoser (#midcost) → Patcher (#lowcost)` | "Send the Diagnose & Patch team at the auth service crash." |
+| 2 | Draft, Review, Publish | "Write a release announcement… ask me before you actually publish." | `Drafter (#lowcost) → Reviewer (#midcost) → Publisher (#lowcost, ask user)` | "Send the Draft, Review, Publish team for the v2.4 release notes." |
+| 3 | Audit & Fix | "Apply the linting fixes and keep retrying… give up after 3 attempts." | `Implementer (#lowcost) → Validator (#midcost) Loop→Implementer or 3` | "Send the Audit & Fix team at the current diff." |
+| 4 | Parallel Recon & Synthesize | "Pull data from the API, the database, and the UI traces all at once…" | `Orchestrator (#highcap) → Recon[A,B,C (#investigate, parallel)](wait) → Synthesizer (#midcost)` | "Send the Parallel Recon & Synthesize team across the payment service sources." |
+| 5 | Iterative Refine | "Keep refining this output until it meets the bar… don't go forever." | `Producer (#lowcost) → Critic (#midcost) Loop→Producer or -context:cap-` | "Send the Iterative Refine team — pass criteria: no hallucinations, cap: 4." |
+| 6 | Iterative Quality Pass | "Run quality checks… I want to be able to stop it early. Hard cap at 5." | `Implementer (#lowcost) → Quality-Checker (#midcost) Loop→Implementer or ask user or 5` | "Send the Iterative Quality Pass team at the current branch." |
+| 7 | Build & Certify | "Build and certify… retry 4 times. If still failing, escalate." | `Builder (#lowcost) → Certifier (#midcost) Loop→Builder or 4; if fail /escalate_cert_failure` | "Send the Build & Certify team." |
+| 8 | Parallel Tracks & Integrate | "Work on the frontend and backend at the same time… once both done, merge." | `Orchestrator (#highcap) → [Track-A[…Loop or 3](parallel), Track-B[…Loop or 3](parallel)](wait) → Integrator (#midcost)` | "Send the Parallel Tracks & Integrate team — Track-A: frontend, Track-B: backend." |
+| 9 | Security Gate | "Run a security review… grab logs first if there are any." | `Log-Scanner (#lowcost, if needed) → Security-Reviewer (#highcap) Loop→Log-Scanner or ask user or -context:cap-` | "Send the Security Gate team at the current diff." |
+| 10 | Research to Deliverable | "Research across both domains in parallel… don't publish without my say-so." | `Orchestrator → Recon[A,B](parallel)(wait) → Planner (ask user) → Implementer → Validator (if asked, Loop or 3) → Publisher (ask user)` | "Send the Research to Deliverable team — Domain-A: regulatory landscape, Domain-B: competitor analysis." |
+| 11 | Index, Audit & Document | "Index skills and bin in parallel. Audit skills. Write docs. Update indexes." | `Indexers[Skills-Indexer,Bin-Indexer (#lowcost, parallel)](wait) → Skill-Auditor (#midcost) → Doc-Writer (#lowcost) → Index-Updater (#lowcost)` | "Send the Index, Audit & Document team." |
+
+---
+
 Eleven self-contained team definitions illustrating the full primitive set. Each is a copy-paste starting point — drop into `agent_teams.md` or `local.agent_teams.md` and invoke by name.
 
 Each example includes a **Human prompt** — the natural-language request that this SAILL definition encodes. This is what you might type or process regularly enough to define an agent team and call it by name — "Send the XYZ team" — saving token cost and giving your team a shared, standard way to invoke the same workflow.

@@ -16,7 +16,9 @@ In practice this means: define your multi-agent loop once, reference it by name 
 
 ---
 
-## Quick Example
+## Quick Examples
+
+### Example 1 — Simple retry loop
 
 **Human prompt:** "Apply the linting fixes and keep retrying until the suite is clean — give up after 3 attempts."
 
@@ -32,15 +34,27 @@ In practice this means: define your multi-agent loop once, reference it by name 
 
 **Invoke:** `"Send the Audit & Fix team at the current diff."`
 
-That definition is portable: drop it into any project's `agent_teams.md`, adjust the role charters, keep the control-flow structure. The model does all interpretation — no SAILL-specific tooling is required in the harness.
+---
+
+### Example 2 — Parallel fan-out with synthesis
+
+**Human prompt:** "Pull data from the API, the database, and the UI traces all at once, then give me one combined report."
+
+```
+### Parallel Recon & Synthesize
+
+1. Orchestrator (#highcap) — defines the investigation scope and fans out.
+2. Recon[ SourceA (#investigate, parallel),
+          SourceB (#investigate, parallel),
+          SourceC (#investigate, parallel) ] (wait)
+3. Synthesizer (#midcost) — merges all findings into a single actionable report.
+```
+
+**Invoke:** `"Send the Parallel Recon & Synthesize team across the payment service sources."`
 
 ---
 
-## Technical Summary
-
-SAILL works by loading team definitions into the model's context via standard `@-import` files (`agent_teams.md`, `agent_team_flags.md`, `model_prefs.md`). These files are wired into your `CLAUDE.md` or `agents.md`. When you invoke a team by name, the model interprets the SAILL expression — spawning roles, applying control-flow primitives, and routing to model groups — using only the already-loaded context. No additional tooling is required at runtime.
-
-Key mechanics: named teams + SAILL primitives (`parallel`, `wait`, `Loop`, `if needed`, `if asked`, `ask user`, `-context:<value>-`) + model groups (`#lowcost`, `#midcost`, `#highcap`, `#investigate`) + scope cascade (definitions stack from root → current directory, most-specific wins).
+Both definitions are portable: drop either into any project's `agent_teams.md`, swap the role charters for your domain, keep the control-flow structure. The model does all interpretation — no SAILL-specific tooling is required in the harness.
 
 ---
 
@@ -51,8 +65,19 @@ Key mechanics: named teams + SAILL primitives (`parallel`, `wait`, `Loop`, `if n
 | **Agent team** | A named, ordered list of roles with model groups and control-flow flags |
 | **Role** | A single unit of work: label + model group + one-line charter |
 | **Model group** | A named capability tier (`#lowcost`, `#midcost`, `#highcap`, `#investigate`) mapped to your actual model IDs — defined once, referenced everywhere |
-| **SAILL primitive** | A control-flow keyword: `if needed`, `if asked`, `parallel`, `wait`, `Loop`, `ask user` |
+| **Model preferences** | A gitignored local file (`model_prefs.local.md`) that maps each model group to your actual model IDs. Filled in once per environment; never committed. The shipped `model_prefs.md` is a conservative template — all groups intentionally set to `Unset` until you configure them. |
+| **SAILL primitive** | A control-flow keyword: `if needed`, `if asked`, `parallel`, `wait`, `Loop`, `ask user`, `-context:<value>-` |
 | **Scope cascade** | Team and model definitions stack from a root directory down to the current folder; most-specific wins |
+
+---
+
+## Technical Summary
+
+SAILL works by loading team definitions into the model's context via standard `@-import` files (`agent_teams.md`, `agent_team_flags.md`, `model_prefs.md`). The mechanism is the `CLAUDE.md` → `agents.md` hierarchy: `CLAUDE.md` `@-imports` `agents.md`, which in turn `@-imports` the SAILL files — assembling the full context before any session begins. When you invoke a team by name, the model interprets the SAILL expression — spawning roles, applying control-flow primitives, and routing to model groups — using only the already-loaded context. No additional tooling is required at runtime.
+
+Scope cascade means these files can live at any directory level; definitions in a subdirectory's `agent_teams.md` override or extend the root-level definitions, so different projects or folders get different team behavior without touching the shared base.
+
+Key mechanics: named teams + SAILL primitives (`parallel`, `wait`, `Loop`, `if needed`, `if asked`, `ask user`, `-context:<value>-`) + model groups (`#lowcost`, `#midcost`, `#highcap`, `#investigate`) + scope cascade (`CLAUDE.md` → `agents.md` → SAILL files, root → current directory, most-specific wins).
 
 ---
 
@@ -69,10 +94,19 @@ Full walkthrough: [Overview and Getting Started](documentation/01%20-%20Overview
 ### Integrate into your own project
 
 1. Copy `agent_teams.md`, `agent_team_flags.md`, and `model_prefs.md` into your project directory (or point at them via environment variable paths — see [Tested Implementation 3](documentation/10%20-%20Tested%20Implementation%203/impl3.md)).
-2. Add `@-import` lines for those files in your `agents.md` or `CLAUDE.md`.
-3. Create `model_prefs.local.md` in the same directory and fill in your model IDs for each group.
+2. Add `@-import` lines for those files in your `CLAUDE.md` (recommended) or `agents.md`:
+   ```
+   @'./agent_teams.md'
+   @'./agent_team_flags.md'
+   @'./model_prefs.md'
+   ```
+3. Create `model_prefs.local.md` alongside `model_prefs.md` and fill in your actual model IDs for each group. The shipped `model_prefs.md` is a conservative template — all groups set to `Unset` by default; `model_prefs.local.md` is required to activate model routing.
 4. Reload your harness context.
-5. Verify with `/context-cost` (confirms files loaded) and `/test-agent-teams` (confirms spawning works).
+5. **Create and test your first team** using the included skills:
+   - `/convert-prompt-to-saill` — convert a natural-language workflow description into a SAILL team definition
+   - `/try-my-prompt` — converts a prompt and returns a ready-to-paste `agent_teams.md` entry plus a plain-English version
+   - `/test-agent-teams` — end-to-end test: spawns each role as a real sub-agent and verifies execution
+6. Verify context loading with `/context-cost` (lists every file loaded and estimated token cost).
 
 ---
 

@@ -4,7 +4,32 @@ SAILL (Standard AI Looping Language) is a compact, vendor-neutral notation for d
 
 ---
 
-## 1. SAILL Inside Skills — Skill Compression
+## 1. Shareable Loops — Standard Interoperability
+
+**Define a workflow once. Share it as a markdown snippet. Anyone with a compatible harness can use it immediately.**
+
+Before SAILL, sharing an agentic workflow meant sharing a wall of natural-language prompt text — verbose, ambiguous, and tied to the author's context and phrasing. Two people using the "same" workflow were running two different things.
+
+SAILL is the standard notation that makes workflows genuinely portable. A team definition is a small, self-contained markdown block built from a closed set of primitives. It reads the same way everywhere — to a human, to the acting model, and to any compatible agent harness. Drop it into a `local.agent_teams.md`, invoke it by name, and it runs.
+
+```
+### Deep Explore
+
+1. Orchestrator (#highcap) — defines scope and fans out.
+2. Recon[ APICrawler (#investigate, parallel), DBReader (#investigate, parallel),
+          UITracer (#investigate, parallel) ] (wait)
+3. Synthesizer (#midcost) — integrates findings into a single report.
+```
+
+Share this on a forum, in a README, in a community library. The recipient pastes it in and runs `Run the Deep Explore team against -context:target-`. No translation, no re-prompting, no loss of intent.
+
+This is the core value of SAILL: it is to agent workflows what SQL is to data queries — a narrow, regular, shareable notation that any compatible system executes identically.
+
+> See [Agent Groups](../03%20-%20Agent%20Groups/agent_groups.md) and [Example Loops](../04%20-%20Example%20Loops/example_loops.md).
+
+---
+
+## 2. SAILL Inside Skills — Skill Compression
 
 **A verbose skill can be replaced with a compact SAILL block.**
 
@@ -24,27 +49,17 @@ The model executes the block directly. Same roles, same execution order, same ou
 
 ---
 
-## 2. Define-Once, Use-Many
+## 3. Define-Once, Use-Many
 
 **Name a team once. Invoke it by name anywhere.**
 
 A team defined in `agent_teams.md` (or `local.agent_teams.md`) is available by name in any prompt, skill, or agent instruction in that scope. Reuse is a reference, not a copy. Shared workflows stay in sync automatically.
 
-```
-### Deep Explore
-
-1. Orchestrator (#highcap) — defines scope and fans out.
-2. Recon[ APICrawler (#investigate, parallel), DBReader (#investigate, parallel) ] (wait)
-3. Synthesizer (#midcost) — integrates findings into a single report.
-```
-
-Invoke it: `Run the Deep Explore team against -context:target repo-`
-
 > See [Agent Groups](../03%20-%20Agent%20Groups/agent_groups.md) and [Example Loops](../04%20-%20Example%20Loops/example_loops.md).
 
 ---
 
-## 3. Vendor-Neutral Model Groups
+## 4. Vendor-Neutral Model Groups
 
 **Route by capability tier, not by provider.**
 
@@ -57,18 +72,6 @@ Reviewer (#highcap, ask user)
 ```
 
 > See [Model Preferences](../08%20-%20Model%20Preferences/model_preferences.md).
-
----
-
-## 4. Shareable Notation
-
-**A team definition is a markdown snippet. Drop it in, invoke by name.**
-
-SAILL is a closed, stable primitive set — the same team definition reads identically to a human, the acting model, and any compatible harness. Share a team on a forum, in a README, or in a community library. Anyone with a SAILL-compatible setup can use it immediately.
-
-No large schema, no runtime dependency, no provider lock-in.
-
-> See [Overview and Getting Started](../01%20-%20Overview%20and%20Getting%20Started/overview.md).
 
 ---
 

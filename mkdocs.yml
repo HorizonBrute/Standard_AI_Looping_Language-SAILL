@@ -1,0 +1,31 @@
+site_name: "SAILL — Standardized AI Looping Language"
+docs_dir: documentation
+
+theme:
+  name: material
+  palette:
+    scheme: slate
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - search.suggest
+    - search.highlight
+
+nav:
+  - Home: index.md
+  - Major Features: "00 - Major Features/major_features.md"
+  - Overview & Getting Started: "01 - Overview and Getting Started/overview.md"
+  - Tested Implementation 1: "02 - Tested Implementation 1/impl1.md"
+  - Agent Groups: "03 - Agent Groups/agent_groups.md"
+  - Example Loops: "04 - Example Loops/example_loops.md"
+  - Evaluating Context Cost: "05 - Evaluating Context Cost/context_cost.md"
+  - How it Works: "06 - How it Works/how_it_works.md"
+  - SAILL Language Guide: "07 - SAILL Language Guide/saill_guide.md"
+  - Model Preferences: "08 - Model Preferences/model_preferences.md"
+  - Tested Implementation 2: "09 - Tested Implementation 2/impl2.md"
+  - Tested Implementation 3: "10 - Tested Implementation 3/impl3.md"
+  - Helper Utilities: "11 - Helper Utilities/helper_utilities.md"
+  - SAILL Inside Skills: "12 - SAILL Inside Skills/saill_in_skills.md"
+  - Proposing a New Primitive: "13 - Proposing a New Primitive/proposing_primitive.md"
+  - Getting Started for AI Agents: "Getting started for AI agents.md"
+  - Language Version Control: LANGUAGE_VERSION_CONTROL.md

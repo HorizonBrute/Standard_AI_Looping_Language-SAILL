@@ -17,7 +17,7 @@
 
 ---
 
-Eleven self-contained team definitions illustrating the full primitive set. Each is a copy-paste starting point — drop into `agent_teams.md` or `local.agent_teams.md` and invoke by name.
+Twelve self-contained team definitions illustrating the full primitive set. Each is a copy-paste starting point — drop into `agent_teams.md` or `local.agent_teams.md` and invoke by name.
 
 Each example includes a **Human prompt** — the natural-language request that this SAILL definition encodes. This is what you might type or process regularly enough to define an agent team and call it by name — "Send the XYZ team" — saving token cost and giving your team a shared, standard way to invoke the same workflow.
 
@@ -287,7 +287,7 @@ Dynamic parallel fan-out: Scanner discovers dirs at runtime, feeds a `-context-`
 |---|---|
 | Sequential roles | 1, 2, 3, 7, 11 |
 | `if needed` | 9 |
-| `if asked` | 5 (Validator), 10 |
+| `if asked` | 10 |
 | `ask user` | 2, 6, 9, 10 |
 | `parallel` / `wait` | 4, 8, 10, 11, 12 |
 | `Loop` | 3, 5, 6, 7, 8, 9, 10 |

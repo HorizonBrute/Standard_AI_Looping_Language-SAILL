@@ -22,7 +22,8 @@ This implementation demonstrates the minimal SAILL setup: all files in one direc
 ├── agents.md
 ├── agent_teams.md
 ├── agent_team_flags.md
-└── model_prefs.md
+├── model_prefs.md
+└── model_prefs.local.md    (gitignored — add your model IDs here)
 ```
 
 ---
@@ -55,7 +56,7 @@ Loads team and model files into context and provides the natural-language invoca
 
 ### agent_teams.md
 
-Defines the four shipped starter teams: **Investigate & Fix**, **Full Team**, **Review & Fix**, **Explore & Summarize**. Also defines the loop syntax, conditional role syntax, sub-teams (boxes), and `-context-` values.
+Defines the five shipped starter teams: **Investigate & Fix**, **Full Team**, **Review & Fix**, **Explore & Summarize**, **Build & Certify**. Also defines the loop syntax, conditional role syntax, sub-teams (boxes), and `-context-` values.
 
 This is the file invoked when you say "send an agent team" in a session. The acting model looks up the requested team name in this file.
 
@@ -81,7 +82,7 @@ Run `/context-cost` from this directory. The output should show `CLAUDE.md`, `ag
 
 Run `/agent-teams` (bare). The skill runs `resolve_agent_teams.py` and displays the teams currently in effect, their roles, and their sources.
 
-Expected output: all four shipped teams visible, sourced from `agent_teams.md`.
+Expected output: all five shipped teams visible, sourced from `agent_teams.md`.
 
 ### 3. Test spawning
 

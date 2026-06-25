@@ -10,7 +10,7 @@ SAILL (Standard AI Looping Language) is a compact, vendor-neutral notation for d
 
 Before SAILL, sharing an agentic workflow meant sharing a wall of natural-language prompt text — verbose, ambiguous, and tied to the author's context and phrasing. Two people using the "same" workflow were running two different things.
 
-SAILL is the standard notation that makes workflows genuinely portable. A team definition is a small, self-contained markdown block built from a closed set of primitives. It reads the same way everywhere — to a human, to the acting model, and to any compatible agent harness. Drop it into a `local.agent_teams.md`, invoke it by name, and it runs.
+SAILL is the standard notation that makes workflows genuinely portable. A team definition is a small, self-contained markdown block built from a closed set of primitives. It reads the same way everywhere — to a human, to the acting model, and to any compatible agent harness. Drop it into a `local.agent_teams.md` (your local team definitions file), invoke it by name, and it runs.
 
 ```
 ### Deep Explore
@@ -31,7 +31,7 @@ This is the core value of SAILL: it is to agent workflows what SQL is to data qu
 
 ## 2. SAILL Inside Skills — Skill Compression
 
-**A verbose skill can be replaced with a compact SAILL block.**
+**A verbose skill (a named, reusable agent instruction file) can be replaced with a compact SAILL block.**
 
 A skill that spawns a multi-role agent team traditionally describes each role in prose — what to do, in what order, with what output. That prose re-explains things the acting model already knows from the SAILL vocabulary. The SAILL-in-skill pattern eliminates that redundancy.
 
@@ -118,6 +118,6 @@ Every construct composes with every other. Complexity comes from composition, no
 
 **Teams, model preferences, and flags inherit and override by directory depth.**
 
-SAILL configuration stacks: OS-level → project-level → brain-level → subfolder. Each layer can add or override what's above it. A brain gets the full default vocabulary from every enclosing scope plus its own local customizations, with no duplication.
+SAILL configuration stacks: OS-level → project-level → workspace-level → subfolder. Each layer can add or override what's above it. A workspace gets the full default vocabulary from every enclosing scope plus its own local customizations, with no duplication.
 
 > See [Tested Implementation 2](../09%20-%20Tested%20Implementation%202/impl2.md) and [How it Works](../06%20-%20How%20it%20Works/how_it_works.md).

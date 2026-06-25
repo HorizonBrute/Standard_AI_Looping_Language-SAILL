@@ -10,7 +10,9 @@ Think of it as SQL for agent-loop definitions.
 
 Running multiple AI agents in a coordinated workflow today means writing a long natural-language prompt every time, or building bespoke tooling that hard-codes the flow. Both approaches are non-portable, expensive in tokens, and not shareable. Changing the workflow means rewriting the prompt or the code.
 
-SAILL solves this by letting you express the workflow once as a named team definition, then invoke it in one line — and share the exact same definition with anyone else on a compatible harness.
+SAILL solves this by letting you express the workflow once as a "Named Team" with context-aware and instruction-aware looping flags. In a write-once-use many model: invoke named agent teams in skills, Create in-line agent-team references, then invoke that team AS A skill - reducing token cost by 80% in some cases. Can also be used in a natural language prompt to an agent.
+
+Portability allows you to share a common definition of a loop- with anyone else  in the world, on a compatible harness if they also have the same team definitions. This solution uses the already existing claude.md /agents.md @-imports feature to implement 
 
 ---
 
@@ -73,6 +75,7 @@ Full walkthrough: [Overview and Getting Started](documentation/01%20-%20Overview
 | 08 | [Model Preferences](documentation/08%20-%20Model%20Preferences/model_preferences.md) | Model groups, member grammar, per-session slots, task-class routing, scope cascade |
 | 09 | [Tested Implementation 2](documentation/09%20-%20Tested%20Implementation%202/impl2.md) | Multi-folder context inheritance: hierarchy, what stacks at each level, override mechanics |
 | 10 | [Tested Implementation 3](documentation/10%20-%20Tested%20Implementation%203/impl3.md) | Environment variable paths for flexible or shared deployments |
+| 11 | [Helper Utilities](documentation/11%20-%20Helper%20Utilities/helper_utilities.md) | Reference for bin utilities — context_cost.py, resolve_agent_teams.py, and testing tools |
 | 12 | [SAILL Inside Skills](documentation/12%20-%20SAILL%20Inside%20Skills/saill_in_skills.md) | Embedding SAILL team notation directly in a skill body — authoring rules and token economy |
 
 Full index: [documentation/index.md](documentation/index.md)

@@ -18,6 +18,8 @@ SAILL is the compact version of that. One team definition reads the same everywh
 
 SAILL is a **closed set of atomic primitives**. Each primitive does exactly one thing. Expressive power comes from composing them, not from adding bespoke flags for every use case.
 
+> The shipped vocabulary is a closed set — it ships identically to every user. Your local scope can extend it by adding rows to `agent_team_flags.local.md` without affecting the shared base.
+
 | Primitive | Form | Meaning |
 |---|---|---|
 | `if needed` | inline | Run only if the acting model judges it adds value; else skip |
@@ -32,6 +34,8 @@ SAILL is a **closed set of atomic primitives**. Each primitive does exactly one 
 Log-reader (#lowcost, if needed)
 Explorer (#investigate, parallel)
 ```
+
+> Model group names like `#lowcost`, `#midcost`, `#highcap` are configured in `model_prefs.md` — see [Model Preferences](../08%20-%20Model%20Preferences/model_preferences.md).
 
 **Annotation primitives** introduce their own clause on the following line:
 ```
@@ -204,11 +208,11 @@ Security-Reviewer (#highcap) — audit -context:source data-;
 
 The shipped flag vocabulary lives in `agent_team_flags.md`. To add a new primitive for your project or organization:
 
-1. Add a row to `local.agent_team_flags.md` (gitignored):
+1. Add a row to `agent_team_flags.local.md` (gitignored):
    ```
    | <flag> | inline|annotation | <meaning> |
    ```
-2. Verify with `resolve_agent_teams.py --flags` — the new flag should appear.
+2. Verify with `resolve_agent_teams.py --flags` (found in `working_copy/bin/`) — the new flag should appear.
 
 The resolver parses flags generically, so a new term works the moment it appears in the registry and is used in a team definition.
 
@@ -240,4 +244,12 @@ SAILL is designed to be a shared, open language for agentic loops — adopted an
 - **Composable** — a small closed set of primitives; complexity comes from composition
 - **Define-once, share freely** — the same team definition works anywhere the primitives are understood
 
-A team definition is shareable as a markdown snippet. Anyone with a compatible agent harness can drop it in and invoke it by name.
+A team definition is shareable as a markdown snippet. Anyone with a compatible agent harness (the tool that assembles the system prompt — e.g., Claude Code, OpenAI Codex CLI) can drop it in and invoke it by name.
+
+---
+
+## Getting Started with SAILL
+
+New to SAILL? Start here:
+- [Overview and Getting Started](../01%20-%20Overview%20and%20Getting%20Started/overview.md) — what SAILL is, prerequisites, and setup
+- [Tested Implementation 1](../02%20-%20Tested%20Implementation%201/impl1.md) — a complete single-folder setup you can run immediately

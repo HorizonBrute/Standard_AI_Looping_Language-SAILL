@@ -10,8 +10,8 @@ This implementation demonstrates how SAILL files stack across a directory hierar
 
 - How SAILL files cascade from an organization root down through groups, teams, and projects
 - That an agent working in a leaf project folder inherits all definitions from every ancestor
-- How `local.agent_teams.md` and `model_prefs.local.md` at each scope override without affecting other scopes
-- How flag customizations (`local.agent_team_flags.md`) can be scoped
+- How `agent_teams.local.md` and `model_prefs.local.md` at each scope override without affecting other scopes
+- How flag customizations (`agent_team_flags.local.md`) can be scoped
 
 ---
 
@@ -67,9 +67,9 @@ All four layers are in the system prompt. The project-level agent has the full c
 
 ---
 
-## How local.agent_teams.md Overrides Work
+## How agent_teams.local.md Overrides Work
 
-At each level, `local.agent_teams.md` can:
+At each level, `agent_teams.local.md` can:
 - **Override** a shipped team by defining a team with the same name — the local definition wins
 - **Add** a custom team by defining a team with a new name — unioned with inherited teams
 
@@ -92,7 +92,9 @@ Example: Org_Root assigns `claude:haiku` to `#lowcost`. Group_A adds `claude:son
 
 ## Practical Implications
 
-**Group_B observed behavior:** The structure shows that Group_B teams and some of its projects do not have `local.agent_team_flags.md` or `model_prefs.local.md`. Those scopes simply inherit from `Org_Root` without any local customization — which is valid and expected. Local override files are optional at every level.
+**Group_B observed behavior:** The structure shows that Group_B teams and some of its projects do not have `agent_team_flags.local.md` or `model_prefs.local.md`. Those scopes simply inherit from `Org_Root` without any local customization — which is valid and expected. Local override files are optional at every level.
+
+**Note:** Direct `@agent_team_flags.md` imports via nested `agents.md` showed reliability issues; the implementations include direct `CLAUDE.md` imports as a fallback.
 
 **"this_project_inherits_+has_custom_teams.txt" and "this_project_has_inherits_flags_and_teams.txt"** — these annotation files in the implementation mark which projects demonstrate team addition vs. flag addition, confirming that both types of extension are tested in the same hierarchy.
 

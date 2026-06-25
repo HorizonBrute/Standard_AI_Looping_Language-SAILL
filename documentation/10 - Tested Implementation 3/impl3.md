@@ -8,6 +8,8 @@ This implementation demonstrates using environment variables as `@-import` paths
 
 ## What This Implementation Demonstrates
 
+This implementation was tested with Claude Code as the agent harness.
+
 - Referencing SAILL files by environment variable path instead of literal relative paths
 - Pointing a project's `agents.md` at a centrally-managed or shared set of team definitions
 - Changing the active team definitions by updating an environment variable rather than a file
@@ -38,10 +40,10 @@ This works when the files are co-located with the project. But if you want to:
 
 ```
 @'$ENV_VAR_LOC1/agent_teams.md'        # Load Agent Teams definitions
-@'$ENV_VAR_LOC1/agent_team_flags.md   # Load flag definitions
+@'$ENV_VAR_LOC1/agent_team_flags.md'  # Load flag definitions
 ```
 
-`$ENV_VAR_LOC1` is set in the shell environment before launching the session. The harness resolves the variable at load time and inlines the file from that location.
+`$ENV_VAR_LOC1` is set in the shell environment before launching the session. The harness (Claude Code or compatible tool) resolves the variable at load time and inlines the file from that location.
 
 The `Location_1/` and `Location_2/` directories in the implementation represent two different locations that `$ENV_VAR_LOC1` might point to — for example, a local repo vs. a shared network location vs. a different team's definitions.
 
@@ -62,7 +64,7 @@ Push environment variables to all machines. All `agents.md` files reference the 
 
 ## Important Caveat
 
-Environment variable changes take effect at **session start**, not mid-session. The harness resolves `@-imports` (including variable expansion) once when building the system prompt. A running session continues using the context it started with.
+Environment variable changes take effect at **session start** (when a new Claude Code conversation begins), not mid-session. The harness resolves `@-imports` (including variable expansion) once when building the system prompt. A running session continues using the context it started with.
 
 If you change `ENV_VAR_LOC1` mid-session, the current session will not pick it up. The change affects the next session.
 
@@ -74,20 +76,36 @@ If you change `ENV_VAR_LOC1` mid-session, the current session will not pick it u
 3 - environment_variables/
 ├── README.md
 ├── Location_1/                         ← one possible target location
-├── Location_2/                         ← another possible target location
+│   ├── README.md
+│   ├── agent_teams.md
+│   ├── agent_team_flags.md
+│   ├── agents.md
+│   ├── claude.md
+│   └── testing_nonce.md
+├── Location_2/                         ← another possible target location (identical to Location_1)
+│   ├── README.md
+│   ├── agent_teams.md
+│   ├── agent_team_flags.md
+│   ├── agents.md
+│   ├── claude.md
+│   └── testing_nonce.md
 └── Your_actual_project_folder/
-    ├── CLAUDE.md
+    ├── claude.md
     ├── agents.md                        ← @-imports via $ENV_VAR_LOC1
-    └── agent_teams.md                  ← local fallback copy
+    ├── agent_teams.md                  ← local fallback copy
+    ├── agent_team_flags.md
+    └── testing_nonce.md
 ```
+
+> **Note:** In this demo implementation, `Location_1` and `Location_2` contain identical team definitions — the point of the pattern is that switching `$ENV_VAR_LOC1` to a different path changes which definitions load, not that the demo locations themselves differ.
 
 `agents.md` in the project folder:
 ```
 @'$ENV_VAR_LOC1/agent_teams.md'
-@'$ENV_VAR_LOC1/agent_team_flags.md
-**"Send an agent team"** resolves through the Agent Teams framework defined in
-  agent_teams.md. Named variants select the matching team by name.
+@'$ENV_VAR_LOC1/agent_team_flags.md'
 ```
+
+**"Send an agent team"** resolves through the Agent Teams framework defined in `agent_teams.md`. Named variants select the matching team by name.
 
 ---
 

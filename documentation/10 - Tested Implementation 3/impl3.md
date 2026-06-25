@@ -1,4 +1,4 @@
-# Tested Implementation 3 — Environment Variables in Agent Team Files
+﻿# Tested Implementation 3 — Environment Variables in Agent Team Files
 
 This implementation demonstrates using environment variables as `@-import` paths in `CLAUDE.md` and `agents.md`, so the actual location of SAILL definition files can be changed at the shell level without editing the markdown files.
 
@@ -38,7 +38,7 @@ This works when the files are co-located with the project. But if you want to:
 
 ```
 @'$ENV_VAR_LOC1/agent_teams.md'        # Load Agent Teams definitions
-@'$ENV_VAR_LOC1/agent_teams_flags.md   # Load flag definitions
+@'$ENV_VAR_LOC1/agent_team_flags.md   # Load flag definitions
 ```
 
 `$ENV_VAR_LOC1` is set in the shell environment before launching the session. The harness resolves the variable at load time and inlines the file from that location.
@@ -84,7 +84,7 @@ If you change `ENV_VAR_LOC1` mid-session, the current session will not pick it u
 `agents.md` in the project folder:
 ```
 @'$ENV_VAR_LOC1/agent_teams.md'
-@'$ENV_VAR_LOC1/agent_teams_flags.md
+@'$ENV_VAR_LOC1/agent_team_flags.md
 **"Send an agent team"** resolves through the Agent Teams framework defined in
   agent_teams.md. Named variants select the matching team by name.
 ```

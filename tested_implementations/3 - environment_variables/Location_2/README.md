@@ -1,4 +1,4 @@
-# Location_2 — Example Team Definition Location
+﻿# Location_2 — Example Team Definition Location
 
 **Location_2** is another possible target location that the environment variable `$ENV_VAR_LOC1` could point to.
 
@@ -18,21 +18,21 @@ When a session starts in `Your_actual_project_folder/` with `ENV_VAR_LOC1=$(pwd)
 
 ```markdown
 @'$ENV_VAR_LOC1/agent_teams.md'       # Resolves to Location_2/agent_teams.md
-@'$ENV_VAR_LOC1/agent_teams_flags.md' # Resolves to Location_2/agent_teams_flags.md
+@'$ENV_VAR_LOC1/agent_team_flags.md' # Resolves to Location_2/agent_team_flags.md
 ```
 
 The session context includes:
 
 - **agent_teams.md** — SAILL agent team definitions (Investigate & Fix, Full Team, Review & Fix, Explore & Summarize)
-- **agent_teams_flags.md** — Flag definitions for loops, conditionals, and role directives
+- **agent_team_flags.md** — Flag definitions for loops, conditionals, and role directives
 
 ---
 
 ## Files in This Location
 
-- **agents.md** — Standard import file; includes `agent_teams.md` and `agent_teams_flags.md`
+- **agents.md** — Standard import file; includes `agent_teams.md` and `agent_team_flags.md`
 - **agent_teams.md** — Core SAILL team definitions
-- **agent_teams_flags.md** — Flag syntax and reference for role modifiers (loops, conditionals, etc.)
+- **agent_team_flags.md** — Flag syntax and reference for role modifiers (loops, conditionals, etc.)
 - **CLAUDE.md** — Session initialization file (imports `agents.md`)
 
 ---

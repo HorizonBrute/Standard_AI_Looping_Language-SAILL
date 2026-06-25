@@ -1,4 +1,4 @@
-# SAILL Implementation 1: Single-Folder Basic Setup
+﻿# SAILL Implementation 1: Single-Folder Basic Setup
 
 This implementation demonstrates the minimal set of files needed to define and invoke SAILL agent teams and model preferences. All files are in a single directory and wired together through `CLAUDE.md`.
 
@@ -36,7 +36,7 @@ This implementation demonstrates the minimal set of files needed to define and i
 **Contents:**
 ```
 @agents.md
-@agent_teams_flags.md
+@agent_team_flags.md
 **"Send an agent team"** resolves through ...
 ```
 
@@ -53,7 +53,7 @@ This implementation demonstrates the minimal set of files needed to define and i
 
 **Contents:**
 - `@agent_teams.md` — references the team definitions
-- `@agent_teams_flags.md` — references the flag vocabulary
+- `@agent_team_flags.md` — references the flag vocabulary
 - `@./model_prefs.md` — references the model groups
 - Inline prose repeating the `**"Send an agent team"**` instruction
 
@@ -146,14 +146,14 @@ When Claude Code opens a session in this directory:
 
 1. **Harness reads `CLAUDE.md`** and begins resolving `@-imports`
 2. **Loads `agents.md`** (line 1: `@agents.md`) — but its own `@-imports` are NOT resolved
-3. **Loads `agent_teams_flags.md`** (line 2: `@agent_teams_flags.md`)
+3. **Loads `agent_team_flags.md`** (line 2: `@agent_team_flags.md`)
 4. All three files are now in context
 
 ### What Gets Into Context
 
 - `CLAUDE.md` itself (entry point)
 - `agents.md` (imported directly)
-- `agent_teams_flags.md` (imported directly)
+- `agent_team_flags.md` (imported directly)
 - `agent_teams.md` — **NOT automatically loaded** (imported only inside `agents.md`, which is unreliable)
 - `model_prefs.md` — **NOT automatically loaded** (imported only inside `agents.md`, which is unreliable)
 
@@ -186,7 +186,7 @@ These imports are **not resolved**. The files are not loaded into context.
 - This limitation forces `CLAUDE.md` to repeat imports or omit them entirely
 
 **Current workaround:**
-- Import only small, essential files in `CLAUDE.md` (e.g., `agents.md`, `agent_teams_flags.md`)
+- Import only small, essential files in `CLAUDE.md` (e.g., `agents.md`, `agent_team_flags.md`)
 - Document other imports in `agents.md` (as done here)
 - Instruct the acting model to reference files on demand when interpreting team definitions
 
@@ -201,7 +201,7 @@ These imports are **not resolved**. The files are not loaded into context.
 Run `/context-cost` from this directory. Output should list:
 - `CLAUDE.md`
 - `agents.md`
-- `agent_teams_flags.md`
+- `agent_team_flags.md`
 
 (And **not** automatically list `agent_teams.md` or `model_prefs.md`, which load on demand.)
 

@@ -1,4 +1,4 @@
-# Tested Implementation 3 — Environment Variables in Agent Team Files
+﻿# Tested Implementation 3 — Environment Variables in Agent Team Files
 
 This implementation demonstrates using environment variables as `@-import` paths in `agents.md`, enabling a single project to load SAILL definitions from different locations without editing files. Team definitions are resolved at session start based on environment variable expansion.
 
@@ -19,7 +19,7 @@ In a standard setup, `agents.md` imports files by relative path:
 
 ```markdown
 @agent_teams.md
-@agent_teams_flags.md
+@agent_team_flags.md
 ```
 
 This works when files are co-located with the project, but it couples the project tightly to a specific folder structure. If you want to:
@@ -39,7 +39,7 @@ The project's `agents.md` references files via an environment variable:
 
 ```markdown
 @'$ENV_VAR_LOC1/agent_teams.md'
-@'$ENV_VAR_LOC1/agent_teams_flags.md'
+@'$ENV_VAR_LOC1/agent_team_flags.md'
 ```
 
 Before starting a session, set the environment variable to point at a location:
@@ -56,7 +56,7 @@ The session harness resolves `$ENV_VAR_LOC1` at load time and inlines the files 
 ### In This Implementation
 
 - **Location_1/** and **Location_2/** are two example locations that `$ENV_VAR_LOC1` might point to
-- Both contain identical `agent_teams.md` and `agent_teams_flags.md` files
+- Both contain identical `agent_teams.md` and `agent_team_flags.md` files
 - **Your_actual_project_folder/** is the project that uses the environment variable to load from either location
 - Switching between locations requires only changing `ENV_VAR_LOC1` and starting a new session
 
@@ -71,13 +71,13 @@ The session harness resolves `$ENV_VAR_LOC1` at load time and inlines the files 
 │   ├── README.md
 │   ├── agents.md
 │   ├── agent_teams.md
-│   ├── agent_teams_flags.md
+│   ├── agent_team_flags.md
 │   └── CLAUDE.md
 ├── Location_2/
 │   ├── README.md
 │   ├── agents.md
 │   ├── agent_teams.md
-│   ├── agent_teams_flags.md
+│   ├── agent_team_flags.md
 │   └── CLAUDE.md
 └── Your_actual_project_folder/
     ├── CLAUDE.md
@@ -130,7 +130,7 @@ This is by design — it prevents context drift mid-conversation and ensures con
    Open the project in your editor or start a session there. The harness loads `agents.md`, expands `$ENV_VAR_LOC1`, and inlines the files from `Location_1/`.
 
 3. **Verify the import resolved correctly:**
-   Check your session's loaded context. The agent teams and flags from `Location_1/agent_teams.md` and `Location_1/agent_teams_flags.md` should be available.
+   Check your session's loaded context. The agent teams and flags from `Location_1/agent_teams.md` and `Location_1/agent_team_flags.md` should be available.
 
 4. **Switch locations (in a new session):**
    ```bash

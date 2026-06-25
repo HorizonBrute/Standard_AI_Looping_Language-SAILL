@@ -1,4 +1,4 @@
-# SAILL Inside Skills
+﻿# SAILL Inside Skills
 
 SAILL notation can be embedded directly in a skill body (`SKILL.md`) to define and direct multi-agent execution. This replaces verbose prose role instructions with a compact SAILL team block — same behavior, far fewer tokens.
 
@@ -84,7 +84,7 @@ All standard SAILL primitives work inside a skill block:
 
 ## Why This Works
 
-The acting model (the skill dispatcher) reads the skill body as its operating instructions. SAILL primitives are part of its loaded context vocabulary — defined in `agent_teams_flags.md` and documented in the SAILL Language Guide. There is no additional wiring required: the skill body *is* the team definition.
+The acting model (the skill dispatcher) reads the skill body as its operating instructions. SAILL primitives are part of its loaded context vocabulary — defined in `agent_team_flags.md` and documented in the SAILL Language Guide. There is no additional wiring required: the skill body *is* the team definition.
 
 The key insight: a skill does not need to be in `agent_teams.md` to use SAILL. Any text the model receives as instructions can carry SAILL notation, and the model will execute it.
 
@@ -99,7 +99,7 @@ The key insight: a skill does not need to be in `agent_teams.md` to use SAILL. A
 
 The reduction comes from eliminating explanations of *what the primitives mean* — the model already knows. A SAILL block says the same thing in the language the model natively operates in.
 
-This is the "define-once, use-many" principle applied to skills: the SAILL vocabulary is defined once in `agent_teams_flags.md`; skills reference it without re-explaining it.
+This is the "define-once, use-many" principle applied to skills: the SAILL vocabulary is defined once in `agent_team_flags.md`; skills reference it without re-explaining it.
 
 ---
 

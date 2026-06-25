@@ -1,9 +1,9 @@
-# Model Preferences — Horizon AIOS
+﻿# Model Preferences â€” Horizon AIOS
 
 Governs the model used for spawned agents and delegated tasks. Apply in this order:
 
-1. Named group from the prompt — first runnable member.
-2. Task-Class Routing match — first runnable member of the mapped group.
+1. Named group from the prompt â€” first runnable member.
+2. Task-Class Routing match â€” first runnable member of the mapped group.
 3. Sub-Agent Override (sub-agents only, if set).
 4. Spawned Agent Model (if set).
 5. Harness / provider default.
@@ -24,7 +24,7 @@ Unset
 
 ## Model Groups
 
-Members defined in `horizon_aios_model_prefs.local.md`.
+Members defined in `model_prefs.local.md`.
 
 ### #lowcost
 ### #midcost
@@ -37,7 +37,7 @@ Members defined in `horizon_aios_model_prefs.local.md`.
 
 ## Task-Class Routing
 
-Defined in `horizon_aios_model_prefs.local.md`.
+Defined in `model_prefs.local.md`.
 
 ---
 

@@ -1,4 +1,4 @@
-# How SAILL Works
+﻿# How SAILL Works
 
 This document covers the mechanics: how context gets into a session, how teams and model preferences are loaded, how the acting model resolves a team name and executes roles, and how scope cascades across a folder hierarchy.
 
@@ -53,7 +53,7 @@ These files are loaded via `@-imports` in `CLAUDE.md`:
 
 ```
 # CLAUDE.md
-@agent_teams_flags.md   # flag vocabulary
+@agent_team_flags.md   # flag vocabulary
 @agent_teams.md         # team definitions
 @model_prefs.md         # model group config
 ```

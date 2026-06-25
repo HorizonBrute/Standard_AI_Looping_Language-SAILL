@@ -1,4 +1,4 @@
-# Tested Implementation 1 — Single-Folder Basic Setup
+﻿# Tested Implementation 1 — Single-Folder Basic Setup
 
 This implementation demonstrates the minimal SAILL setup: all files in one directory, loaded by a single `CLAUDE.md`.
 
@@ -21,7 +21,7 @@ This implementation demonstrates the minimal SAILL setup: all files in one direc
 ├── CLAUDE.md
 ├── agents.md
 ├── agent_teams.md
-├── agent_teams_flags.md
+├── agent_team_flags.md
 └── model_prefs.md
 ```
 
@@ -39,7 +39,7 @@ The harness entry point. `@-imports` the files that must be in context every ses
               # Testing during June 2026 initial development.
 
 #@agent_teams.md       # Load Agent Teams definitions (commented out — redundant)
-@agent_teams_flags.md  # Load flag definitions
+@agent_team_flags.md  # Load flag definitions
                        # Save context — instruct agent to reference the file if needed.
 **"Send an agent team"** resolves through the Agent Teams framework defined in
   agent_teams.md. Named variants select the matching team by name.
@@ -53,7 +53,7 @@ Loads team and model files into context and provides the natural-language invoca
 
 ```
 @agent_teams.md        # Load Agent Teams definitions
-@agent_teams_flags.md  # Load flag definitions
+@agent_team_flags.md  # Load flag definitions
 **"Send an agent team"** resolves through the Agent Teams framework defined in
   agent_teams.md. Named variants select the matching team by name.
 @./model_prefs.md      # Load Model Preferences
@@ -67,7 +67,7 @@ This is the file invoked when you say "send an agent team" in a session. The act
 
 See [Agent Groups](../03%20-%20Agent%20Groups/agent_groups.md) for the full team definitions and format reference.
 
-### agent_teams_flags.md
+### agent_team_flags.md
 
 The flag vocabulary catalog. Lists each SAILL primitive with its form (inline or annotation) and meaning. The acting model uses this to interpret flags in team definitions.
 
@@ -81,7 +81,7 @@ Declares the model groups (`#lowcost`, `#midcost`, `#highcap`, `#investigate`, `
 
 ### 1. Confirm context loads
 
-Run `/context-cost` from this directory. The output should show `CLAUDE.md`, `agent_teams.md`, `agent_teams_flags.md`, and `model_prefs.md` in the loaded file list.
+Run `/context-cost` from this directory. The output should show `CLAUDE.md`, `agent_teams.md`, `agent_team_flags.md`, and `model_prefs.md` in the loaded file list.
 
 ### 2. Inspect active teams
 

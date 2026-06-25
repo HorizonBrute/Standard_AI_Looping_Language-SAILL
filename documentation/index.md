@@ -21,6 +21,7 @@
 | 10 | [Tested Implementation 3](10%20-%20Tested%20Implementation%203/impl3.md) | Environment variable paths: pointing @-imports at a variable location for flexible or shared deployments |
 | 11 | [Helper Utilities](11%20-%20Helper%20Utilities/helper_utilities.md) | Reference for system utilities across bin, sbin, and usrbin — names, descriptions, and file links |
 | 12 | [SAILL Inside Skills](12%20-%20SAILL%20Inside%20Skills/saill_in_skills.md) | Embedding SAILL team notation directly in a skill body — the before/after pattern, authoring rules, token economy, and the reference implementation |
+| 13 | [Proposing a New Primitive](13%20-%20Proposing%20a%20New%20Primitive/proposing_primitive.md) | How to prototype a primitive locally, write a team that uses it, test it, document the origin prompt and compression, and submit a complete proposal |
 | — | [Getting Started for AI Agents](Getting%20started%20for%20AI%20agents.md) | Agent-oriented onboarding: learn, implement, and test paths for AI agents working with SAILL |
 | — | [Language Version Control](LANGUAGE_VERSION_CONTROL.md) | SAILL language version history and changelog |
 

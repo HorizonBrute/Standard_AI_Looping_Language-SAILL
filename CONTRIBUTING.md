@@ -31,7 +31,17 @@ SAILL is deliberately minimal. The primitives are meant to stay small — these 
 
 The question I'll ask about any proposal: **does this fit the primitives-first, low-context-overhead philosophy, or does it add complexity without adding expressive power that can't already be covered by combining existing primitives?**
 
-If you think you've found something that genuinely can't be expressed today and belongs in the core language, open an issue or a PR and make the case. I'm not looking for a long list of edge-case flags — I'm looking for things that represent real innovation in how agents can be directed. I don't have all the answers here. If you've found one, I want to hear it.
+If you think you've found something that genuinely can't be expressed today and belongs in the core language, I want to hear it. Use the **[Suggest New Primitive](https://github.com/HorizonBrute/Standard_AI_Looping_Language--SAILL/issues/new?template=suggest_primitive.md)** issue template — it walks through the full submission package.
+
+**Full how-to:** [documentation/13 - Proposing a New Primitive/proposing_primitive.md](documentation/13%20-%20Proposing%20a%20New%20Primitive/proposing_primitive.md)
+
+The required submission package (no exceptions):
+- The natural-language prompt that surfaced the need
+- The proposed primitive definition (one-sentence, terse)
+- A team definition that uses the primitive
+- Test evidence — output from `/test-agent-teams` showing the primitive ran and behaved as described
+- Before/after prompt comparison showing the compression
+- A brief statement of why no existing primitive covers this
 
 ---
 

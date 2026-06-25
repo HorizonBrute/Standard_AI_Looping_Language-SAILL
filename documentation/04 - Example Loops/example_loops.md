@@ -4,7 +4,7 @@ Eleven self-contained team definitions illustrating the full primitive set. Each
 
 Each example includes a **Human prompt** — the natural-language request that this SAILL definition encodes. This is what you might type or process regularly enough to define an agent team and call it by name — "Send the XYZ team" — saving token cost and giving your team a shared, standard way to invoke the same workflow.
 
-Each example also includes a **Prompt change after implementation** section showing how the invocation shrinks once the team is defined.
+Each example also includes an **Invoke** line — the terse one-liner once the team is defined.
 
 Model groups reference the standard tiers: `#lowcost`, `#midcost`, `#highcap`, `#investigate`. Replace role labels and charters to fit your workflow; the control-flow structure stays portable. Add or remove models/groups in `model_prefs.md` using the appropriate skill.
 
@@ -23,7 +23,7 @@ Minimal two-role sequential flow. No conditions, no retries — the simplest sha
 2. Patcher (#lowcost) — applies the fix described by Diagnoser and confirms resolution.
 ```
 
-**Prompt change after implementation:**
+**Invoke:**
 > "Send the Diagnose & Patch team at the auth service crash."
 
 ---
@@ -42,7 +42,7 @@ Three-role sequence with an `ask user` gate before the final step. Useful whenev
 3. Publisher (#lowcost, ask user) — waits for user approval, then executes the publish step.
 ```
 
-**Prompt change after implementation:**
+**Invoke:**
 > "Send the Draft, Review, Publish team for the v2.4 release notes."
 
 ---
@@ -63,7 +63,7 @@ Implement/validate pattern with a three-iteration retry loop. The Validator feed
    any outstanding failures.
 ```
 
-**Prompt change after implementation:**
+**Invoke:**
 > "Send the Audit & Fix team at the current diff."
 
 ---
@@ -84,7 +84,7 @@ Fan out across multiple sources concurrently, then merge findings. The `wait` on
 3. Synthesizer (#midcost) — merges all findings into a single actionable report.
 ```
 
-**Prompt change after implementation:**
+**Invoke:**
 > "Send the Parallel Recon & Synthesize team across the payment service sources."
 
 ---
@@ -104,7 +104,7 @@ Loop where both the pass condition and the iteration cap come from the invocatio
    repeat until -context:pass criteria- or -context:cap- iterations, then report failures.
 ```
 
-**Prompt change after implementation:**
+**Invoke:**
 > "Send the Iterative Refine team — pass criteria: no hallucinations, cap: 4."
 
 ---
@@ -124,7 +124,7 @@ Loop that exits on whichever comes first: a clean pass, the user choosing to sto
    repeat until clean or ask user or 5 iterations, then report any outstanding failures.
 ```
 
-**Prompt change after implementation:**
+**Invoke:**
 > "Send the Iterative Quality Pass team at the current branch."
 
 ---
@@ -145,7 +145,7 @@ Build loop with an `if fail` handler: if the loop exhausts its cap without passi
    if fail /escalate_cert_failure
 ```
 
-**Prompt change after implementation:**
+**Invoke:**
 > "Send the Build & Certify team."
 
 ---
@@ -167,7 +167,7 @@ Two independent workstreams each running their own implement/validate loop in pa
 3. Integrator (#midcost) — merges both track outputs and verifies the combined result.
 ```
 
-**Prompt change after implementation:**
+**Invoke:**
 > "Send the Parallel Tracks & Integrate team — Track-A: frontend, Track-B: backend."
 
 ---
@@ -186,7 +186,7 @@ Optional role (`if needed`) that the acting model skips when there is no runtime
    on findings **Loop:** return findings to "Log-Scanner" until clean or ask user or -context:cap-.
 ```
 
-**Prompt change after implementation:**
+**Invoke:**
 > "Send the Security Gate team at the current diff."
 
 ---
@@ -211,7 +211,7 @@ End-to-end: orchestrate, explore in parallel, plan (user-gated), implement with 
 6. Publisher (#lowcost, ask user) — waits for final approval, then delivers the output.
 ```
 
-**Prompt change after implementation:**
+**Invoke:**
 > "Send the Research to Deliverable team — Domain-A: regulatory landscape, Domain-B: competitor analysis."
 
 ---
@@ -235,7 +235,7 @@ Parallel indexing, then a sequential audit/write pipeline with a cleanup step. D
 4. Index-Updater (#lowcost) — refreshes any indexes affected by the above changes.
 ```
 
-**Prompt change after implementation:**
+**Invoke:**
 > "Send the Index, Audit & Document team."
 
 ---

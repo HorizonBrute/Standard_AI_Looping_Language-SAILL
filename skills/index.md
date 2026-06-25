@@ -10,3 +10,4 @@
 | [model-prefs-test](model-prefs-test/SKILL.md) | Test which model the model-preference config actually resolves to per group, and (in live mode) spawn small test agents by group name to confirm the spawn honors it. |
 | [saill-to-english](saill-to-english/SKILL.md) | Translate a SAILL agent-team definition into plain English — render every primitive, loop, box, flag, and -context- placeholder as natural language a non-technical reader can follow. |
 | [test-agent-teams](test-agent-teams/SKILL.md) | End-to-end self-test of the Agent Teams system — walk every defined team (or one named team) and spawn each role so it echoes a self-generated nonce, its role, what it was told to do (its charter), and the model it actually ran as. |
+| [try-my-prompt](try-my-prompt/SKILL.md) | Convert a prompt to SAILL via /convert-prompt-to-saill and return two formatted outputs: a copy-paste agent_teams.md entry and a friendly plain-English version. |

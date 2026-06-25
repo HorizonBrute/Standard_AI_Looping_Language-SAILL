@@ -8,6 +8,7 @@
 
 | # | Document | Description |
 |---|---|---|
+| 00 | [Major Features](00%20-%20Major%20Features/major_features.md) | The defining capabilities of SAILL — SAILL-in-skill compression, define-once-use-many, vendor-neutral model groups, shareable notation, context-light runtime values, native parallelism, and scope cascade |
 | 01 | [Overview and Getting Started](01%20-%20Overview%20and%20Getting%20Started/overview.md) | What SAILL is, why it exists, key concepts, prerequisites, getting started path, and verification steps |
 | 02 | [Tested Implementation 1](02%20-%20Tested%20Implementation%201/impl1.md) | Single-folder basic setup: files, wiring, known @-import limitation, and how to verify |
 | 03 | [Agent Groups](03%20-%20Agent%20Groups/agent_groups.md) | What agent teams are, the four shipped teams, conditions, loops, custom teams, and scope cascade |

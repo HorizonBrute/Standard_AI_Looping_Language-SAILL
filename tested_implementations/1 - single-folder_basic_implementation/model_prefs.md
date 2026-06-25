@@ -1,4 +1,4 @@
-﻿# Model Preferences â€” Horizon AIOS
+# Model Preferences 
 
 Governs the model used for spawned agents and delegated tasks. Apply in this order:
 

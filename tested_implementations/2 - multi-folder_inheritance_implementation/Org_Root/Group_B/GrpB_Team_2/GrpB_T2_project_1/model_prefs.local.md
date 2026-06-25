@@ -1,4 +1,4 @@
-# Model Preferences Local Overrides — Horizon AIOS
+# Model Preferences Local Overrides
 
 Override or extend model preferences defined in the base `model_prefs.md`.
 

@@ -1,4 +1,4 @@
-# Agent Teams — Horizon AIOS
+# Agent Teams
 
 ---
 
@@ -66,4 +66,4 @@ Use `local.agent_teams.md` (gitignored). Same-name overrides this file; new name
 
 ## Scope Precedence
 
-Same cascade and override-file rules as `horizon_aios_model_prefs.md § Scope Precedence`. No new semantics.
+Same cascade and override-file rules as `model_prefs.md § Scope Precedence`. No new semantics.

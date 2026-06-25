@@ -110,7 +110,7 @@ user-global model_prefs.md / model_prefs.local.md
 - Groups: membership combined across scopes
 - Routing: more-specific scope wins on conflict
 
-Override files are `@-imported` from the scope's `agents.md` — never from `CLAUDE.md`.
+Override files are typically `@-imported` from `CLAUDE.md` directly. While importing via `agents.md` is conceptually cleaner, direct `CLAUDE.md` imports are the tested-reliable path in current harness versions. The goal is full interoperability — this is a current harness limitation, not a SAILL language constraint.
 
 ---
 

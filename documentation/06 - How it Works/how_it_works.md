@@ -56,7 +56,7 @@ These files are loaded via `@-imports` in `CLAUDE.md`:
 @model_prefs.md         # model group config
 ```
 
-> **Known limitation:** In testing with Claude Sonnet 4.6 (June 2026), `@-imports` declared inside `agents.md` were found to be unreliable — the harness did not consistently inline the referenced files. The pattern above (importing all SAILL files directly in `CLAUDE.md`) is the verified working approach. See the tested implementations for the exact wiring used.
+> **Known Limitation — @-imports via agents.md:** Nested @-imports through `agents.md` may not resolve reliably in all harness versions. The tested-safe workaround is to import SAILL files directly from `CLAUDE.md` rather than chaining through `agents.md`. This is what all three tested implementations use. The long-term goal is full vendor-agnostic resolution without this workaround; this limitation is harness-specific, not part of the SAILL language spec.
 
 Once loaded, the model has the team definitions and model group mappings in context for the entire session. No further reads are needed to invoke a team by name.
 

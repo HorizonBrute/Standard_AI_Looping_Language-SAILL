@@ -28,6 +28,7 @@ SAILL is a **closed set of atomic primitives**. Each primitive does exactly one 
 | `parallel` | inline | Run concurrently with adjacent `parallel`-flagged roles |
 | `wait` | inline | Sync point: wait for the preceding parallel group to finish before continuing |
 | `Loop` | annotation | Re-run an earlier role with feedback until a pass condition or iteration cap |
+| `-context:<value>-` | value | Injects a named value from the invoking context at runtime. The value in angle brackets names what is being sought (e.g., `-context:dirs-` = the list of directories from the current context). Resolved by the acting model at invocation time. |
 
 **Inline primitives** appear inside a role's model group parenthetical:
 ```
@@ -123,6 +124,12 @@ Loop: to "Implementer" until -context:pass- or -context:cap-
 Scope a role from context:
 ```
 Investigator (#midcost) — audit -context:source data-
+```
+
+Fan out over a context-resolved list with `per`:
+```
+per -context:dirs-:
+  1. Analyzer (#lowcost) — reads the directory and reports findings.
 ```
 
 ---

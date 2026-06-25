@@ -61,6 +61,8 @@ Examples: Claude Code, OpenAI Codex CLI, or any similar tool that reads a contex
 
 Once those files are in place, reload your harness context so it picks up the imports. After that, SAILL is functional.
 
+> **Note:** Import SAILL files from `CLAUDE.md` directly (not through a chain via `agents.md`) for reliable context loading. See [How it Works](../06%20-%20How%20it%20Works/how_it_works.md) for details.
+
 ---
 
 ## Getting Started

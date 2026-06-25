@@ -8,9 +8,10 @@ This document tracks language-level changes to SAILL (Standard AI Looping Langua
 
 ## 0.9 (pre-release)
 
-**Status:** Initial language definition.
+**Date:** 2026-06-25
+**Status:** Initial pre-release
 
-First public pre-release of SAILL. Establishes the core primitive set and syntax conventions.
+First public pre-release of SAILL. Establishes the core primitive set and syntax conventions. First tested implementation validated and documented.
 
 ### Core primitives shipped
 
@@ -19,13 +20,14 @@ First public pre-release of SAILL. Establishes the core primitive set and syntax
 | `parallel` | Execute roles/steps concurrently |
 | `wait` | Block until a prior parallel step completes |
 | `Loop` | Repeat a step or block (with optional condition) |
-| `if needed` | Conditional execution — run only when the condition is required |
+| `if needed` | Conditional execution — run only when the acting model judges it adds value |
 | `if asked` | Conditional execution — run only when explicitly requested by the caller |
 | `ask user` | Pause flow and surface a question to the human |
-| `-context- values` | Runtime-bound named values injected into a flow at invocation |
-| `model groups` | Role-level model preference declarations |
-| `scope cascade` | Inheritance of settings/context from outer scope to inner |
-| `nested boxes` | Sub-team / sub-flow blocks nested inside a parent flow |
+| `-context:<value>-` | Runtime-bound named values injected into a flow at invocation; value in angle brackets names what is being sought (e.g., `-context:dirs-`) |
+| `#lowcost`, `#midcost`, `#highcap`, `#investigate` | Model groups — named capability tiers mapped to actual model IDs via `model_prefs.md` |
+| scope cascade | Inheritance of team definitions and model preferences from outer scope to inner; most-specific scope wins |
+| `[ … ]` (nested boxes) | Sub-team / sub-flow blocks nested inside a parent flow; name a box to declare an inline sub-team |
+| `/skill-name` invocation | A role's charter may invoke a named skill directly (e.g., `if fail /triage`) |
 
 ### Notes
 

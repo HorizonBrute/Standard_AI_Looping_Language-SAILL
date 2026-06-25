@@ -13,6 +13,7 @@
 | 9 | Security Gate | "Run a security review… grab logs first if there are any." | `Log-Scanner (#lowcost, if needed) → Security-Reviewer (#highcap) Loop→Log-Scanner or ask user or -context:cap-` | "Send the Security Gate team at the current diff." |
 | 10 | Research to Deliverable | "Research across both domains in parallel… don't publish without my say-so." | `Orchestrator → Recon[A,B](parallel)(wait) → Planner (ask user) → Implementer → Validator (if asked, Loop or 3) → Publisher (ask user)` | "Send the Research to Deliverable team — Domain-A: regulatory landscape, Domain-B: competitor analysis." |
 | 11 | Index, Audit & Document | "Index skills and bin in parallel. Audit skills. Write docs. Update indexes." | `Indexers[Skills-Indexer,Bin-Indexer (#lowcost, parallel)](wait) → Skill-Auditor (#midcost) → Doc-Writer (#lowcost) → Index-Updater (#lowcost)` | "Send the Index, Audit & Document team." |
+| 12 | Nonce Trace Audit | "For every dir with a trace nonce file, send a haiku agent to report agents.md files loaded…" | `Scanner (#lowcost) → Readers[Nonce-Reader (#lowcost, parallel) per -context:dirs-](wait) → Synthesizer (#midcost) → Writer (#lowcost)` | "Send the Nonce Trace Audit team in working_copy." |
 
 ---
 
@@ -256,6 +257,30 @@ Parallel indexing, then a sequential audit/write pipeline with a cleanup step. D
 
 ---
 
+## 12. Nonce Trace Audit
+
+Dynamic parallel fan-out: Scanner discovers dirs at runtime, feeds a `-context-` list to a parallel Readers box. Each reader is silent, returns only CSV. Synthesizer and Writer handle aggregation and file output.
+
+> **Human prompt:** "For every directory in working_copy that has a trace nonce file in it, send a haiku agent to ask what agents.md files loaded, read the nonce file, and report back only a CSV. Summarize all reports as a directory tree and write it to lastrun_dirtree_check.md."
+
+```
+### Nonce Trace Audit
+
+1. Scanner (#lowcost) — finds all directories under working_copy containing a trace nonce file;
+   outputs the list as -context:dirs-.
+2. Readers[ Nonce-Reader (#lowcost, parallel) for each dir in -context:dirs- ] (wait)
+   — each reads its nonce file, asks "what agents.md files loaded", and returns
+   a single silent CSV row: directory, agents.md files loaded, nonce file content.
+3. Synthesizer (#midcost) — merges all CSV rows into a directory tree summary.
+4. Writer (#lowcost) — overwrites lastrun_dirtree_check.md in the current directory
+   with the tree output.
+```
+
+**Invoke:**
+> "Send the Nonce Trace Audit team in working_copy."
+
+---
+
 ## Quick-Reference: Primitives Used
 
 | Primitive | Examples above |
@@ -264,10 +289,11 @@ Parallel indexing, then a sequential audit/write pipeline with a cleanup step. D
 | `if needed` | 9 |
 | `if asked` | 5 (Validator), 10 |
 | `ask user` | 2, 6, 9, 10 |
-| `parallel` / `wait` | 4, 8, 10, 11 |
+| `parallel` / `wait` | 4, 8, 10, 11, 12 |
 | `Loop` | 3, 5, 6, 7, 8, 9, 10 |
 | Compound loop exit (`or ask user`) | 6, 9 |
-| `-context-` values | 5, 6 (cap), 9 |
+| `-context-` values | 5, 6 (cap), 9, 12 (dirs) |
 | `if fail <skill>` | 7 |
 | Skill call in charter | 9 |
 | Nested boxes | 8, 11 |
+| Dynamic fan-out (`parallel` per `-context-`) | 12 |

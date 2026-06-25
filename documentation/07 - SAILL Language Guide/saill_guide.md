@@ -216,6 +216,20 @@ The resolver parses flags generically, so a new term works the moment it appears
 
 ---
 
+## SAILL Inside Skills
+
+SAILL notation works anywhere an agent receives instructions — including inside a skill body (`SKILL.md`). A skill that spawns a multi-role team can define that team inline as a SAILL block instead of verbose prose, then close with a single dispatch line:
+
+```
+**Send the <Team Name> team against -context-**
+```
+
+This replaces ~50 lines of role-description prose with ~10 lines of SAILL. Same execution, same output contract, ~80% fewer tokens.
+
+See [SAILL Inside Skills](../12%20-%20SAILL%20Inside%20Skills/saill_in_skills.md) for the full pattern, authoring rules, and reference implementation.
+
+---
+
 ## Community Goal
 
 SAILL is designed to be a shared, open language for agentic loops — adopted and extended across harnesses and projects. The defining properties that make it portable:

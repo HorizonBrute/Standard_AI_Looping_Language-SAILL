@@ -1,3 +1,5 @@
+# This context loaded from: 3 - environment_variables\Your_actual_project_folder\agents.md
+
 @'$ENV_VAR_LOC1/agent_teams.md'       # Load Agent Teams definitions
 @'$ENV_VAR_LOC1/agent_teams_flags.md  # Load Looping Definitions
                                       # Save context, you can instruct the agent to reference the file if it needs. Testing with Claud Sonnet. 4.8 Produced unreliable results.

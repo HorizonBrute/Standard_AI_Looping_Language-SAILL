@@ -22,54 +22,12 @@ The model treats embedded SAILL exactly as it treats a team defined in `agent_te
 
 ## Before and After
 
-### Before — verbose prose skill (~50 lines)
+Live comparison:
 
-```markdown
-### Role 1 — Scanner (in Haiku)
-
-Glob for `**/testing_nonce.md` under "working copy". Return the list of parent directories
-as parent directories. Pass that list to the Readers box.
-
----
-
-### Role 2 — Readers box (wait)
-Spawn **one haiku Nonce-Reader per directory** in `-context:dirs-`, all in a single parallel
-batch. Each Nonce-Reader receives:
-
-- Its assigned directory path
-- The pre-computed inheritance chain: every parent directory up to the impl root that
-  contains an `agents.md` (walk the path upward; stop at the impl root boundary)
-
-Each Nonce-Reader returns ONE CSV row:
-```
-directory_shortname,trace1|trace2|...,nonce
-```
-- `directory_shortname` — relative path from `tested_implementations/`
-- `trace1|trace2|...` — "This context loaded from:" values, deepest first
-- `nonce` — value after `nonce: ` in the nonce file
-
-Wait for all Nonce-Readers before continuing.
-
----
-
-### Role 3 — Synthesizer in Sonnet
-
-Collect all CSV rows. Build a markdown fenced directory tree...
-[continues for many more lines]
-```
-
-### After — SAILL-in-skill (~10 lines)
-
-```markdown
-### Nonce Trace Audit
-
-1. Scanner (#lowcost) — globs `**/testing_nonce.md` under -context:root-; emits directory list as -context:dirs-.
-2. Readers[ Nonce-Reader (#lowcost, parallel) per -context:dirs- ] (wait) — one haiku agent per dir; reads testing_nonce.md and walks parent dirs for agents.md trace lines; returns CSV row: `dir,trace1|trace2|...,nonce`.
-3. Synthesizer (#midcost) — collects CSV rows; builds fenced markdown directory tree (nonce ✓, chain depth per node, MISSING flagged).
-4. Writer (#lowcost) — writes tree to `documentation/lastrun_dirtree_check.md` with run header; appends `sha256: <hash>`.
-
-**Send the Nonce Trace Audit team against -context-**
-```
+| Version | File |
+|---|---|
+| Before — verbose prose (~50 lines) | [`skills/test_saill_in_skill/example_conversion.md`](../../skills/test_saill_in_skill/example_conversion.md) |
+| After — SAILL-in-skill (~10 lines) | [`skills/test_saill_in_skill/SKILL.md`](../../skills/test_saill_in_skill/SKILL.md) |
 
 Same four roles. Same execution order. Same output contract. Roughly 80% fewer tokens.
 
@@ -147,13 +105,10 @@ This is the "define-once, use-many" principle applied to skills: the SAILL vocab
 
 ## Reference Implementation
 
-The tested proof-of-concept is at:
+The tested proof-of-concept is at `skills/test_saill_in_skill/`:
 
-```
-skills/test_saill_in_skill/
-├── SKILL.md              ← the SAILL-compressed skill (10 lines)
-└── example_conversion.md ← the original verbose version (~50 lines)
-```
+- [`SKILL.md`](../../skills/test_saill_in_skill/SKILL.md) — the SAILL-compressed skill (~10 lines)
+- [`example_conversion.md`](../../skills/test_saill_in_skill/example_conversion.md) — the original verbose version (~50 lines)
 
 `SKILL.md` runs the **Nonce Trace Audit** team: Scanner → parallel Readers → Synthesizer → Writer. It produces the same output as the prose version it replaced.
 

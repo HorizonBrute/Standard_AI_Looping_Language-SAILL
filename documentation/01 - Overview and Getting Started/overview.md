@@ -48,12 +48,13 @@ The acting model looks up the team, spawns each role on its assigned model group
 
 ## Prerequisites
 
-**A compatible agent harness** — any harness that:
-- Reads `agents.md` from the working directory
-- Resolves file imports declared in `agents.md` (or `CLAUDE.md`) and loads them into context
-- Passes that assembled context to the model before the session starts
+**A compatible agent harness** — any harness that reads `agents.md` (or `CLAUDE.md`) as a context manifest, resolves its `@-import` directives, and loads the result into the model's system prompt before the session starts.
 
-Examples: Claude Code, OpenAI Codex CLI, or any similar tool that reads a context manifest and sends it to the model. The model does all interpretation — no SAILL-specific tooling is required in the harness itself.
+`agents.md` / `CLAUDE.md` has become the de facto standard context manifest format for agentic developer tools. **Claude Code** and **OpenAI Codex CLI** support this natively. Any other harness can implement it with a straightforward wrapper: walk the directory tree, collect `agents.md` files, resolve `@-imports`, assemble the system prompt. The compatibility surface is simple and well-defined.
+
+**Tested working environments:** Claude (multiple models and versions), OpenAI Codex CLI, Ollama (local models), Ollama configured as a wrapper around Claude, and Ollama pointed at web-hosted models.
+
+> **Note on model selection:** SAILL execution is fully in-context — the acting model reads team definitions and follows them. Testing has used large-context, capable models. Smaller models may not reliably follow complex multi-role team structures. Test your target model before deploying.
 
 **What you supply:**
 - `@-import` lines in your own `agents.md` or `CLAUDE.md` pointing at the SAILL files (`agent_teams.md`, `agent_team_flags.md`, `model_prefs.md`)
@@ -65,19 +66,20 @@ Once those files are in place, reload your harness context so it picks up the im
 
 ---
 
-## Getting Started
+## Quick Start — Test in 2 Steps
 
-The fastest path is the [single-folder basic implementation](../02%20-%20Tested%20Implementation%201/impl1.md) — a complete, tested setup you can run directly.
+The fastest path to seeing SAILL work requires no configuration.
 
-1. Clone or download the SAILL repository.
-2. In your terminal, navigate to `tested_implementations/1 - single-folder_basic_implementation/`.
-3. Open your agent harness (Claude Code, Codex, or similar) with that directory as the working directory.
-4. Connect to your provider of choice.
-5. Tell the harness to invoke the agent tests directly from the file: `run /test-agent-teams from agent_teams.md`.
+1. Open your context-aware harness (Claude Code, Codex CLI, or compatible) with `tested_implementations/1 - single-folder_basic_implementation/` as the working directory.
+2. Run `/test-agent-teams`.
 
-This validates SAILL is functional in your environment before you integrate it into your own project.
+The skill spawns each role as a real sub-agent and verifies execution against a test nonce. You'll see multi-role chaining working live in your environment before touching your own project.
 
-**To integrate into your own project:**
+> `/test-agent-teams` spawns real agents — it incurs API cost.
+
+## Integrating Into Your Own Project
+
+**To integrate SAILL into your own project:**
 1. Copy `agent_teams.md`, `agent_team_flags.md`, and `model_prefs.md` into your project directory (or point at them via environment variable paths — see [Tested Implementation 3](../10%20-%20Tested%20Implementation%203/impl3.md)).
 2. Add `@-import` lines for those files in your `agents.md` or `CLAUDE.md`.
 3. Create `model_prefs.local.md` in the same directory and fill in your model IDs for each group.

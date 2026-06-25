@@ -4,9 +4,13 @@ This document covers the mechanics: how context gets into a session, how teams a
 
 ---
 
-## How Claude Code Loads Context
+## How Context Loads — The agents.md Standard
 
-When a Claude Code session starts in a directory, the harness assembles the system prompt by walking the directory tree from the user-global location down to the current working directory (CWD) and loading every `CLAUDE.md` it finds along the way.
+`agents.md` and `CLAUDE.md` have become the de facto standard context manifest format for agentic developer tools. Claude Code and OpenAI Codex CLI support this natively. Any other harness can implement it: walk the directory tree, collect `agents.md` / `CLAUDE.md` files, resolve `@-imports`, and assemble the system prompt before session start.
+
+The mechanics below use Claude Code as the reference implementation, but the behavior is the same for any harness that honors the standard.
+
+When a session starts in a directory, the harness assembles the system prompt by walking the directory tree from the user-global location down to the current working directory (CWD) and loading every `CLAUDE.md` it finds along the way.
 
 ### The loading chain
 

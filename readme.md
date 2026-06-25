@@ -12,7 +12,7 @@ Running multiple AI agents in a coordinated workflow today means writing a long 
 
 SAILL solves this by letting you define the workflow once as a named team, then invoke it in one line. The same definition is shareable with anyone on a compatible harness — no SAILL-specific tooling required.
 
-In practice this means: define your multi-agent loop once, reference it by name in prompts or in skills. Teams defined in skills can reduce repeated-prompt token cost by 80% or more compared to writing the full workflow out each session.
+In practice this means: define your multi-agent loop once, reference it by name in prompts or in skills. Teams defined in skills can reduce repeated-prompt token cost by 80% or more compared to writing the full workflow out each session. (Proof: [before/after skill comparison](skills/test_saill_in_skill/example_conversion.md) vs. [`skills/test_saill_in_skill/SKILL.md`](skills/test_saill_in_skill/SKILL.md) — documented in [SAILL Inside Skills](documentation/12%20-%20SAILL%20Inside%20Skills/saill_in_skills.md).)
 
 ---
 
@@ -79,15 +79,26 @@ Scope cascade means these files can live at any directory level; definitions in 
 
 Key mechanics: named teams + SAILL primitives (`parallel`, `wait`, `Loop`, `if needed`, `if asked`, `ask user`, `-context:<value>-`) + model groups (`#lowcost`, `#midcost`, `#highcap`, `#investigate`) + scope cascade (`CLAUDE.md` → `agents.md` → SAILL files, root → current directory, most-specific wins).
 
+**Harness compatibility:** `agents.md` and `CLAUDE.md` have become the de facto standard context manifest format for agentic developer tools. Claude Code and OpenAI Codex CLI support this natively — open the working directory and the context loads automatically. Any other harness can implement it with a straightforward wrapper: walk the directory tree, collect `agents.md` / `CLAUDE.md` files, resolve `@-imports`, and assemble the system prompt before session start. No SAILL-specific tooling is required. The lego blocks fit.
+
+**Tested environments:** Claude (multiple models and versions), OpenAI Codex CLI, Ollama (local models), Ollama configured as a wrapper around Claude, and Ollama pointed at web-hosted models — all confirmed working.
+
+> **Note on model selection:** SAILL execution is fully in-context — the acting model reads team definitions and follows them using its own reasoning. Testing has focused on large-context, capable models. Smaller or less capable models may not reliably execute complex multi-role team structures. Test your target model in your environment before deploying.
+
 ---
 
 ## Getting Started
 
-### First run — verify SAILL works (5 min)
+### First run — verify SAILL works
 
-1. Clone this repo.
-2. Open your agent harness (Claude Code or any harness that reads a context manifest) with `tested_implementations/1 - single-folder_basic_implementation/` as the working directory.
-3. Run `/test-agent-teams` to verify real sub-agents spawn and chain correctly.
+**Prerequisite:** Clone this repo.
+
+1. Open your context-aware harness (Claude Code, Codex CLI, or any compatible harness) with `tested_implementations/1 - single-folder_basic_implementation/` as the working directory.
+2. Run `/test-agent-teams`.
+
+The skill spawns each role as a real sub-agent, verifies each role echoed the test nonce, and reports which model each role ran on. You'll see multi-role chaining live in your environment.
+
+> `/test-agent-teams` spawns real agents — it incurs API cost.
 
 Full walkthrough: [Overview and Getting Started](documentation/01%20-%20Overview%20and%20Getting%20Started/overview.md)
 

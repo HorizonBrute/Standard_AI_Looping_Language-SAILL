@@ -107,6 +107,7 @@ The full SAILL primitive set:
 | `ask user` | Pause for user input or approval |
 | `[ … ]` box | Group roles into a named sub-team |
 | `if fail <action>` | Failure handler — run on cap-exhausted loop or role failure |
+| `-context:<value>-` | Runtime value injected from the invocation context — resolves at call time; multi-word ok |
 
 Every construct composes with every other. Complexity comes from composition, not from bespoke flags.
 

@@ -1,4 +1,4 @@
-# Agent Team Flags — Standardized AI Loop Language (SAILL)
+# Agent Team Flags — Standard AI Looping Language (SAILL)
 Role primitives for agent team definitions. Extend in `agent_team_flags.local.md`.
 | Flag | Form | Means |
 |------|------|-------|
@@ -11,4 +11,4 @@ Role primitives for agent team definitions. Extend in `agent_team_flags.local.md
 | `Loop` | annot | `**Loop:** on <cond>, return to "<role>"; until <pass> (or `ask user`, or `-context:cap-`), then <cap action / if fail>.` Re-run earlier role w/ feedback. Always bound it. |
 | `[ … ]` | struct | Box roles into one node. `Name[ … ]` = inline ephemeral sub-team; nest freely. No new operators — concurrency/iteration use the flags above. |
 | `/skill-name` | call | A role's charter (or an `if fail` / handler action) may invoke a named skill — e.g. `… before /security-review`, `if fail /triage`. The work is charter, not a flag. |
-| `-context-` | value | Resolve from context where a literal would go; qualify `-context:<name>-` (multi-word ok), e.g. `-context:pass criteria-`, `-context:cap-`, `-context:source data-`. |
+| `-context:<value>-` | value | Injects a named value from the invoking context at runtime. The value in angle brackets names what is being sought (e.g., `-context:dirs-` = the list of directories from the current context). Resolved by the acting model at invocation time. Multi-word ok: `-context:pass criteria-`, `-context:source data-`. |

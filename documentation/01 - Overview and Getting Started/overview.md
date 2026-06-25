@@ -65,7 +65,7 @@ Once those files are in place, reload your harness context so it picks up the im
 
 ## Getting Started
 
-The fastest path is the [single-folder basic implementation](../09%20-%20Tested%20Implementation%201/impl1.md) — a complete, tested setup you can run directly.
+The fastest path is the [single-folder basic implementation](../02%20-%20Tested%20Implementation%201/impl1.md) — a complete, tested setup you can run directly.
 
 1. Clone or download the SAILL repository.
 2. In your terminal, navigate to `tested_implementations/1 - single-folder_basic_implementation/`.
@@ -114,13 +114,13 @@ The acting model should spawn an Investigator on `#midcost`, then a Fixer on `#l
 
 | Topic | File |
 |---|---|
-| How context loads, @-imports, scope stacking | [How it Works](../02%20-%20How%20it%20Works/how_it_works.md) |
-| Defining and invoking agent teams | [Agent Groups](../04%20-%20Agent%20Groups/agent_groups.md) |
-| The full SAILL primitive set, boxes, loops, -context- | [SAILL Language Guide](../03%20-%20SAILL%20Language%20Guide/saill_guide.md) |
-| Model groups, routing, per-session slots | [Model Preferences](../05%20-%20Model%20Preferences/model_preferences.md) |
-| Example loops (copy-paste team definitions) | [Example Loops](../06%20-%20Example%20Loops/example_loops.md) |
-| AIOS helper utilities reference | [Helper Utilities](../07%20-%20Helper%20Utilities/helper_utilities.md) |
-| Keeping context overhead low | [Evaluating Context Cost](../08%20-%20Evaluating%20Context%20Cost/context_cost.md) |
-| Working single-folder example | [Tested Implementation 1](../09%20-%20Tested%20Implementation%201/impl1.md) |
-| Multi-folder inheritance example | [Tested Implementation 2](../10%20-%20Tested%20Implementation%202/impl2.md) |
-| Environment variable paths example | [Tested Implementation 3](../11%20-%20Tested%20Implementation%203/impl3.md) |
+| Working single-folder example | [Tested Implementation 1](../02%20-%20Tested%20Implementation%201/impl1.md) |
+| Defining and invoking agent teams | [Agent Groups](../03%20-%20Agent%20Groups/agent_groups.md) |
+| Example loops (copy-paste team definitions) | [Example Loops](../04%20-%20Example%20Loops/example_loops.md) |
+| Keeping context overhead low | [Evaluating Context Cost](../05%20-%20Evaluating%20Context%20Cost/context_cost.md) |
+| How context loads, @-imports, scope stacking | [How it Works](../06%20-%20How%20it%20Works/how_it_works.md) |
+| The full SAILL primitive set, boxes, loops, -context- | [SAILL Language Guide](../07%20-%20SAILL%20Language%20Guide/saill_guide.md) |
+| Model groups, routing, per-session slots | [Model Preferences](../08%20-%20Model%20Preferences/model_preferences.md) |
+| Multi-folder inheritance example | [Tested Implementation 2](../09%20-%20Tested%20Implementation%202/impl2.md) |
+| Environment variable paths example | [Tested Implementation 3](../10%20-%20Tested%20Implementation%203/impl3.md) |
+| AIOS helper utilities reference | [Helper Utilities](../11%20-%20Helper%20Utilities/helper_utilities.md) |

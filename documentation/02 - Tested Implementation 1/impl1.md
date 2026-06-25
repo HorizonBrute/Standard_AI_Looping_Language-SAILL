@@ -65,7 +65,7 @@ Defines the four shipped starter teams: **Investigate & Fix**, **Full Team**, **
 
 This is the file invoked when you say "send an agent team" in a session. The acting model looks up the requested team name in this file.
 
-See [Agent Groups](../04%20-%20Agent%20Groups/agent_groups.md) for the full team definitions and format reference.
+See [Agent Groups](../03%20-%20Agent%20Groups/agent_groups.md) for the full team definitions and format reference.
 
 ### agent_teams_flags.md
 

@@ -80,7 +80,7 @@ With these three files in place, you can say:
 
 The acting model spawns an Investigator on a `#midcost` model, then a Fixer on a `#lowcost` model, chaining the diagnosis through.
 
-> **Note (June 2026):** Claude Code's harness resolves `@-imports` only from `CLAUDE.md` files, not from `agents.md`. Put your `@-imports` directly in `CLAUDE.md` for reliable loading. See [How it Works](../How%20it%20Works/how_it_works.md) for details.
+> **Note (June 2026):** Claude Code's harness resolves `@-imports` only from `CLAUDE.md` files, not from `agents.md`. Put your `@-imports` directly in `CLAUDE.md` for reliable loading. See [How it Works](../02%20-%20How%20it%20Works/how_it_works.md) for details.
 
 ---
 
@@ -88,11 +88,12 @@ The acting model spawns an Investigator on a `#midcost` model, then a Fixer on a
 
 | Topic | File |
 |---|---|
-| How context loads, @-imports, scope stacking | [How it Works](../How%20it%20Works/how_it_works.md) |
-| Defining and invoking agent teams | [Agent Groups](../Agent%20Groups/agent_groups.md) |
-| The full SAILL primitive set, boxes, loops, -context- | [SAILL Language Guide](../SAILL%20Language%20Guide/saill_guide.md) |
-| Model groups, routing, per-session slots | [Model Preferences](../Model%20Preferences/model_preferences.md) |
-| Keeping context overhead low | [Evaluating Context Cost](../Evaluating%20Context%20Cost/context_cost.md) |
-| Working single-folder example | [Tested Implementation 1](../Tested%20Implementation%201/impl1.md) |
-| Multi-folder inheritance example | [Tested Implementation 2](../Tested%20Implementation%202/impl2.md) |
-| Environment variable paths example | [Tested Implementation 3](../Tested%20Implementation%203/impl3.md) |
+| How context loads, @-imports, scope stacking | [How it Works](../02%20-%20How%20it%20Works/how_it_works.md) |
+| Defining and invoking agent teams | [Agent Groups](../04%20-%20Agent%20Groups/agent_groups.md) |
+| The full SAILL primitive set, boxes, loops, -context- | [SAILL Language Guide](../03%20-%20SAILL%20Language%20Guide/saill_guide.md) |
+| Model groups, routing, per-session slots | [Model Preferences](../05%20-%20Model%20Preferences/model_preferences.md) |
+| Example loops (copy-paste team definitions) | [Example Loops](../06%20-%20Example%20Loops/example_loops.md) |
+| Keeping context overhead low | [Evaluating Context Cost](../08%20-%20Evaluating%20Context%20Cost/context_cost.md) |
+| Working single-folder example | [Tested Implementation 1](../09%20-%20Tested%20Implementation%201/impl1.md) |
+| Multi-folder inheritance example | [Tested Implementation 2](../10%20-%20Tested%20Implementation%202/impl2.md) |
+| Environment variable paths example | [Tested Implementation 3](../11%20-%20Tested%20Implementation%203/impl3.md) |
